@@ -10,7 +10,6 @@
     <div>
         <form>
             <input type="text" id="txtTeamName" placeholder="Team Name" />
-            <input type="button" value="Search" />
         </form>
         <br/>
         <div>
@@ -25,12 +24,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.2.1/rxjs.umd.min.js"></script>
     <script>
 
-        const { observable, of, from } = rxjs;
-        const { map, filter } = rxjs.operators;
+        const { observable, of, from, fromEvent } = rxjs;
+        const { map, filter, debounceTime } = rxjs.operators;
 
         //fetching data from the specified URL
         const worldCupData = fetch("https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json");
         var listOfTeamsInGroupA = [];
+
+
         worldCupData.then(data => data.json())
             .then(data => {
                 const teamsData = data["teams"];
@@ -76,9 +77,9 @@
                                                 $('<div>')
                                                     .append(
                                                         $('<img>', {
-                                                            'src': singleTeam.flag, 
-                                                            'height':'15px', 
-                                                            'width':'15px'
+                                                            'src': singleTeam.flag,
+                                                            'height': '15px',
+                                                            'width': '15px'
                                                         })
                                                     )
                                                     .append(
@@ -92,6 +93,59 @@
                             )
                     })
             })
+
+
+        //When some value is entered in the text field
+        //$('#txtTeamName').keydown(function(){
+        //console.log("Changed!");
+        //});
+
+        //Doing the same as above but with RJX and Observables
+        const teamNameEntered = fromEvent($('#txtTeamName'), 'keydown');
+        teamNameEntered
+            .pipe(
+                debounceTime(400),
+                map(e => e.target.value)
+            )
+            .subscribe(e => {
+                if (e != "") {
+                    from(listOfTeamsInGroupA)
+                        .pipe(
+                            filter(singleTeam => singleTeam.name.toUpperCase().startsWith(e.toUpperCase()))
+                        )
+                        .subscribe(singleTeam => {
+                            $('#teams').text("");
+                            $('#teams').append(
+                                $('<th>', {
+                                    'text': 'Team'
+                                })
+                            );
+                            $('#teams')
+                                .append(
+                                    $('<tr>')
+                                        .append(
+                                            $('<td>')
+                                                .append(
+                                                    $('<div>')
+                                                        .append(
+                                                            $('<img>', {
+                                                                'src': singleTeam.flag,
+                                                                'height': '15px',
+                                                                'width': '15px'
+                                                            })
+                                                        )
+                                                        .append(
+                                                            $('<span>', {
+                                                                'text': " " + singleTeam.name
+                                                            })
+                                                        )
+                                                )
+                                        )
+
+                                )
+                        })
+                }
+            });
     </script>
 </body>
 
