@@ -35,13 +35,15 @@
         worldCupData.then(data => data.json())
             .then(data => {
                 const teamsData = data["teams"];
+				console.log(teamsData);
+				console.log(data["groups"]);
                 of(data["groups"])
                     .pipe(
                         map(data => data["a"])
                     )
                     .subscribe(
                         (obj) => {
-
+							console.log(obj);
                             from(obj.matches)
                                 .pipe(
                                     map(obj => obj)
