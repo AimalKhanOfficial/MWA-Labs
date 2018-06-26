@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Array Extension</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.2.1/rxjs.umd.min.js"></script>
+    <script>
+
+        const { of, from } = rxjs;
+        const { filter } = rxjs.operators;
+
+        Array.prototype.even = function () {
+            var myEvenFunction = function () {
+                var evenValuesArr = [];
+                from(this)
+                    .pipe(
+                        filter(values => values % 2 == 0)
+                    )
+                    .subscribe(
+                        evenValues => {
+                            evenValuesArr.push(evenValues);
+                        }
+                    );
+                console.log(evenValuesArr);
+            };
+            setTimeout(myEvenFunction.bind(this), 0);
+        }
+
+        Array.prototype.odd = function () {
+            var myOddFunction = function () {
+                var oddValuesArr = [];
+                from(this)
+                    .pipe(
+                        filter(values => values % 2 != 0)
+                    )
+                    .subscribe(
+                        oddValues => {
+                            oddValuesArr.push(oddValues);
+                        }
+                    );  
+                console.log(oddValuesArr);
+            };
+            var finalFun = myOddFunction.bind(this);
+            setTimeout(finalFun, 0);
+        }
+
+        console.log('Start');
+        [1, 2, 3, 4, 5, 6, 7, 8].even();
+        [1, 2, 3, 4, 5, 6, 7, 8].odd();
+        console.log('End');
+    </script>
+</body>
+
+</html>
