@@ -1,9 +1,17 @@
 var fs = require('fs');
 
-function readFile() {
-    return fs.readFileSync(__dirname + '/aimal.txt', 'utf-8');
+function readFile(resObj) {
+    console.log("2");
+    var readStream = fs.createReadStream(__dirname + '/aimal.txt', 'utf-8');
+    readStream.on('data', function(data){
+        process.send(data);
+    });
+
+    readStream.on('end', function(){
+        process.send('end');
+    });
 }
 
 process.on('message', function (msg) {
-    process.send(readFile());
+    readFile();
 });

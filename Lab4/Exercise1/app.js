@@ -12,10 +12,16 @@ obserable.subscribe(function (param) {
     var parsedUrl = url.parse(param.reqParam.url, true);
     if (parsedUrl.query.url === "path/to/my/file.txt") {
         const childProcess = fork('readFileCustom.js');
+
         childProcess.send('start');
+
         childProcess.on('message', function (data) {
-            console.log(data);
-            param.resParam.end(data);
+            if (data === 'end') {
+                param.resParam.end();
+            }
+            else {
+                param.resParam.write(data);
+            }
         });
     }
     else {
