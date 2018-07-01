@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        CORS Client
+    </title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $.get('http://localhost:3000/api/grades/')
+        .done(function(res){
+            console.log(res);
+        })
+        .fail(function(err){
+            console.log(err);
+        });
+    </script>
+</body>
+
+</html>
