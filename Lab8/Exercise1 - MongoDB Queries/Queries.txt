@@ -24,3 +24,48 @@ db.restaurants.find({district:"Bronx"}).skip(5).limit(5).pretty()
 
 //Q8
 db.restaurants.find({"address.coord.1" : { $lt : -95.754168 } }).pretty()
+
+//Q9
+db.restaurants.find({$and : [{cuisine: {$ne : "American "}}, {'grades.score' : {$gt : 70}}]}).pretty()
+
+//Q10
+db.restaurants.find({name : {$regex : "^Wil", $options: 'i'}}, {restaurant_id:1, name:1, district: 1, cuisine:1, _id:0}).pretty()
+
+//Q11
+db.restaurants.find({name : {$regex : "ces$", $options: 'i'}}, {restaurant_id:1, name:1, district: 1, cuisine:1, _id:0}).pretty()
+
+//Q12 
+db.restaurants.find({name : {$regex : "^reg$", $options: 'i'}}, {restaurant_id:1, name:1, district: 1, cuisine:1, _id:0}).pretty()
+
+//Q13
+db.restaurants.find({$and : [{cuisine : {$in : ["Chinese", "American "]}}, {district:"Bronx"}]}).pretty()
+
+//Q14
+db.restaurants.find({district : {$in : ["Staten Island", "Queens", "Bronx", "Brooklyn"]}}, {restaurant_id:1, name:1, district:1, cuisine:1, _id:0}).pretty()
+
+//Q15
+db.restaurants.find({district : {$not : {$in : ["Staten Island", "Queens", "Bronx", "Brooklyn"]}}}, {restaurant_id:1, name:1, district:1, cuisine:1, _id:0}).pretty()
+
+//Q16
+db.restaurants.find({'grades.score' : {$not : {$gt : 10}}}, {restaurant_id:1, name:1, district:1, cuisine:1, _id:0}).pretty()
+
+//Q17
+db.restaurants.find({'address.coord.1' : {$gt : 42, $lte : 52}}, {restaurant_id : 1, name: 1, "address.coord":1, _id:0}).pretty()
+
+//Q18
+db.restaurants.find().sort({"name":1}).pretty()
+
+//Q19
+db.restaurants.find().sort({"name":-1}).pretty()
+
+//Q20
+db.restaurants.find().sort({"cuisine":1, "districit":-1}).pretty()
+ 
+//Q21
+db.restaurants.find({'address.street' : {$exists : true} }).pretty()
+
+//Q22
+db.restaurants.find({$and : [{'address.coord.0':{$type : 1}}, {'address.coord.1':{$type : 1}}]}).pretty()
+
+//Q23
+db.restaurants.find({name : {$regex : "^Mad", $options: "i"}}, {name:1, _id:0, district:1, cuisine:1, "address.coord":1}).pretty()
