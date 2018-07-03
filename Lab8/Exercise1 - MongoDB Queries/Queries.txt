@@ -1,0 +1,17 @@
+//MongoDB Queries 
+/////////////////
+
+//Q1
+db.restaurants.find().pretty()
+
+//Q2
+db.restaurants.find({}, {restaurant_id: 1, name: 1, district:1, cuisine:1}).pretty()
+
+//Q3
+db.restaurants.find({}, {restaurant_id: 1, name: 1, district:1, cuisine:1, _id: 0}).pretty()
+
+//Q4
+db.restaurants.find({}, {restaurant_id: 1, name: 1, district:1, "address.zipcode":1, _id:0}).pretty()
+
+//Q5
+db.restaurants.find({district:"Bronx"}).pretty()
