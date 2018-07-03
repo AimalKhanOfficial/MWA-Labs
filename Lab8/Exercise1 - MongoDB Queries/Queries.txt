@@ -15,3 +15,12 @@ db.restaurants.find({}, {restaurant_id: 1, name: 1, district:1, "address.zipcode
 
 //Q5
 db.restaurants.find({district:"Bronx"}).pretty()
+
+//Q6
+db.restaurants.find({district:"Bronx"}).limit(5).pretty()
+
+//Q7
+db.restaurants.find({district:"Bronx"}).skip(5).limit(5).pretty()
+
+//Q8
+db.restaurants.find({"address.coord.1" : { $lt : -95.754168 } }).pretty()
