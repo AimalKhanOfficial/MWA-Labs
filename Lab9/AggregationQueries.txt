@@ -1,0 +1,11 @@
+//Q1
+db.subjectData.aggregate([{$match : {"state": "IA"}}, {$project : {zipcode : "$_id", _id : 0}}]).pretty()
+
+//Q2
+db.subjectData.aggregate([{$match : {"state" : "IA", "pop" : {$lt : 1000}}}, {$project : {zipcode : "$_id", _id : 0}}]).pretty()
+
+//Q3
+db.subjectData.aggregate([{$group : {_id : "$city", count : {$sum:1}}}, {$match : {count : {$gte : 2}}}, {$project : {_id : 0, 'city' : "$_id", 'Occurance': "$count"}}, {$sort : {city:1, state: 1}}])
+
+//Q4
+db.subjectData.aggregate([{$group : {_id : {"City":"$city", "State":"$state"}, Population: {$sum: "$pop"}}}, {$sort : {"_id.State":1, "Population":-1}}, {$group : {_id: "$_id.State", city : {$last : "$_id.City"}, Population : {$last: "$Population"}}}, {$sort : {"_id":1}}])
