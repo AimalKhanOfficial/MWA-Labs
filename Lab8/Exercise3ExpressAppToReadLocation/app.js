@@ -15,29 +15,29 @@ app.use(express.json());
 
 //Step 5
 app.get('/', (req, res, next) => {
-    mongoClientGlobal.then(client => {
-        var db = client.db("LocationDb");
-        db.collection('locations').find({}, function (err, data) {
-            console.log(data.locations);
-        });
-        // );
-        // cursor.each((err, doc)=>{
-
-        // });
-    }).catch(err => {
-        res.json("Error");
+    var allResults = [];
+    var cussor = mongoClientGlobal.collection('locations').find({});
+    cussor.forEach(function (doc) {
+        allResults.push(doc);
+    }, function (err) {
+        if (!err) res.json(allResults);
     });
 });
 
 app.post('/', (req, res, next) => {
-    mongoClientGlobal.then(client => {
-        var db = client.db("LocationDb");
-        db.collection('locations').insert(req.body, function (err, docInserted) {
-            if (err) res.status(500).json(err);
-            res.status(201).json("Inserted");
-        });
-    }).catch(err => {
-        res.status(500).json("Error");
+    mongoClientGlobal.collection('locations').insert(req.body, function (err, docInserted) {
+        if (err) res.status(500).json(err);
+        res.status(201).json("Inserted");
+    });
+});
+
+app.get('/nearest', (req, res, next) => {
+    var allResults = [];
+    var cussor = mongoClientGlobal.collection('locations').find({ location: { $near: [-91.9678813, 41.0134308] } }).limit(3);
+    cussor.forEach(function (doc) {
+        allResults.push(doc);
+    }, function (err) {
+        if (!err) res.json(allResults);
     });
 });
 
@@ -47,12 +47,17 @@ app.post('/', (req, res, next) => {
 //Step 7
 //Boot up
 app.listen(3000, () => {
-    mongoClientGlobal = connectToDb();
+    connectToDb();
     console.log("Started");
 });
 
 
 function connectToDb() {
     var mongoPromise = promisify(mongoDb.connect);
-    return mongoPromise("mongodb://127.0.0.1:27017/LocationDb");
+    mongoPromise("mongodb://127.0.0.1:27017/LocationDb").then(client => {
+        mongoClientGlobal = client.db("LocationDb");
+        return;
+    }).catch(err => {
+        console.log(err);
+    });
 }

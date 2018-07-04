@@ -1,0 +1,226 @@
+MongoDB shell version v4.0.0
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 4.0.0
+Server has startup warnings:
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten]
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten] ** WARNING: Access contr
+ol is not enabled for the database.
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten] **          Read and wri
+te access to data and configuration is unrestricted.
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten]
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten] Hotfix KB2731284 or late
+r update is not installed, will zero-out data files.
+2018-07-03T20:06:27.376-0500 I CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service to collect and display
+metrics about your deployment (disk utilization, CPU, operation statistics,
+etc).
+
+The monitoring data will be available on a MongoDB website with a unique
+URL created for you. Anyone you share the URL with will also be able to
+view this page. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command:
+db.enableFreeMonitoring()
+---
+
+> use LocationDB
+switched to db LocationDB
+> use LocationDb
+switched to db LocationDb
+> db.locations.insert({a:1})
+WriteResult({ "nInserted" : 1 })
+> db.locations.find({})
+{ "_id" : ObjectId("5b3c213f675cf9a4d293e46a"), "a" : 1 }
+> db.locations.remove({})
+WriteResult({ "nRemoved" : 7 })
+> db.locations.find({})
+{ "_id" : ObjectId("5b3c285cbc130d21a80b57f1"), "name" : "Maharisi University",
+"category" : "University", "location" : [ -91.967813, 41.0134308 ] }
+{ "_id" : ObjectId("5b3c2886bc130d21a80b57f2"), "name" : "Chautauqua Park", "cat
+egory" : "Park", "location" : [ -91.980124, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c28a4bc130d21a80b57f3"), "name" : "Evergreen Cem", "categ
+ory" : "Graveyard", "location" : [ -91.980124, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c292dbc130d21a80b57f4"), "name" : "OB Nelson Park", "cate
+gory" : "Sports", "location" : [ -92.032652, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c295cbc130d21a80b57f5"), "name" : "MUM Library", "categor
+y" : "Educational Bldg", "location" : [ -91.968253, 41.0177015 ] }
+{ "_id" : ObjectId("5b3c2978bc130d21a80b57f6"), "name" : "Soccer Field", "catego
+ry" : "Sports", "location" : [ -91.965511, 41.0196483 ] }
+{ "_id" : ObjectId("5b3c298fbc130d21a80b57f7"), "name" : "Maharishi School", "ca
+tegory" : "School", "location" : [ -91.966992, 41.0162808 ] }
+> db.locations.find({}).pretty()
+{
+        "_id" : ObjectId("5b3c285cbc130d21a80b57f1"),
+        "name" : "Maharisi University",
+        "category" : "University",
+        "location" : [
+                -91.967813,
+                41.0134308
+        ]
+}
+{
+        "_id" : ObjectId("5b3c2886bc130d21a80b57f2"),
+        "name" : "Chautauqua Park",
+        "category" : "Park",
+        "location" : [
+                -91.980124,
+                41.0162808
+        ]
+}
+{
+        "_id" : ObjectId("5b3c28a4bc130d21a80b57f3"),
+        "name" : "Evergreen Cem",
+        "category" : "Graveyard",
+        "location" : [
+                -91.980124,
+                41.0162808
+        ]
+}
+{
+        "_id" : ObjectId("5b3c292dbc130d21a80b57f4"),
+        "name" : "OB Nelson Park",
+        "category" : "Sports",
+        "location" : [
+                -92.032652,
+                41.0162808
+        ]
+}
+{
+        "_id" : ObjectId("5b3c295cbc130d21a80b57f5"),
+        "name" : "MUM Library",
+        "category" : "Educational Bldg",
+        "location" : [
+                -91.968253,
+                41.0177015
+        ]
+}
+{
+        "_id" : ObjectId("5b3c2978bc130d21a80b57f6"),
+        "name" : "Soccer Field",
+        "category" : "Sports",
+        "location" : [
+                -91.965511,
+                41.0196483
+        ]
+}
+{
+        "_id" : ObjectId("5b3c298fbc130d21a80b57f7"),
+        "name" : "Maharishi School",
+        "category" : "School",
+        "location" : [
+                -91.966992,
+                41.0162808
+        ]
+}
+> db.locations.createIndex({location:2d})
+2018-07-03T21:00:22.442-0500 E QUERY    [js] SyntaxError: identifier starts imme
+diately after numeric literal @(shell):1:35
+> db.locations.find({})
+{ "_id" : ObjectId("5b3c285cbc130d21a80b57f1"), "name" : "Maharisi University",
+"category" : "University", "location" : [ -91.967813, 41.0134308 ] }
+{ "_id" : ObjectId("5b3c2886bc130d21a80b57f2"), "name" : "Chautauqua Park", "cat
+egory" : "Park", "location" : [ -91.980124, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c28a4bc130d21a80b57f3"), "name" : "Evergreen Cem", "categ
+ory" : "Graveyard", "location" : [ -91.980124, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c292dbc130d21a80b57f4"), "name" : "OB Nelson Park", "cate
+gory" : "Sports", "location" : [ -92.032652, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c295cbc130d21a80b57f5"), "name" : "MUM Library", "categor
+y" : "Educational Bldg", "location" : [ -91.968253, 41.0177015 ] }
+{ "_id" : ObjectId("5b3c2978bc130d21a80b57f6"), "name" : "Soccer Field", "catego
+ry" : "Sports", "location" : [ -91.965511, 41.0196483 ] }
+{ "_id" : ObjectId("5b3c298fbc130d21a80b57f7"), "name" : "Maharishi School", "ca
+tegory" : "School", "location" : [ -91.966992, 41.0162808 ] }
+
+
+
+
+
+> db.locations.createIndex({location: '2d'})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+
+
+
+
+> db.locations.find({location: {$near:[-91.9678813, 41.0134308]}}).limit(3)
+{ "_id" : ObjectId("5b3c285cbc130d21a80b57f1"), "name" : "Maharisi University",
+"category" : "University", "location" : [ -91.967813, 41.0134308 ] }
+{ "_id" : ObjectId("5b3c298fbc130d21a80b57f7"), "name" : "Maharishi School", "ca
+tegory" : "School", "location" : [ -91.966992, 41.0162808 ] }
+{ "_id" : ObjectId("5b3c295cbc130d21a80b57f5"), "name" : "MUM Library", "categor
+y" : "Educational Bldg", "location" : [ -91.968253, 41.0177015 ] }
+> db.locations.find({location: {$near:[-91.9678813, 41.0134308]}}).limit(3).pret
+ty()
+{
+        "_id" : ObjectId("5b3c285cbc130d21a80b57f1"),
+        "name" : "Maharisi University",
+        "category" : "University",
+        "location" : [
+                -91.967813,
+                41.0134308
+        ]
+}
+{
+        "_id" : ObjectId("5b3c298fbc130d21a80b57f7"),
+        "name" : "Maharishi School",
+        "category" : "School",
+        "location" : [
+                -91.966992,
+                41.0162808
+        ]
+}
+{
+        "_id" : ObjectId("5b3c295cbc130d21a80b57f5"),
+        "name" : "MUM Library",
+        "category" : "Educational Bldg",
+        "location" : [
+                -91.968253,
+                41.0177015
+        ]
+}
+> db.locations.find({location: {$near:[-91.9678813, 41.0134308]}}).limit(4).pret
+ty()
+{
+        "_id" : ObjectId("5b3c285cbc130d21a80b57f1"),
+        "name" : "Maharisi University",
+        "category" : "University",
+        "location" : [
+                -91.967813,
+                41.0134308
+        ]
+}
+{
+        "_id" : ObjectId("5b3c298fbc130d21a80b57f7"),
+        "name" : "Maharishi School",
+        "category" : "School",
+        "location" : [
+                -91.966992,
+                41.0162808
+        ]
+}
+{
+        "_id" : ObjectId("5b3c295cbc130d21a80b57f5"),
+        "name" : "MUM Library",
+        "category" : "Educational Bldg",
+        "location" : [
+                -91.968253,
+                41.0177015
+        ]
+}
+{
+        "_id" : ObjectId("5b3c2978bc130d21a80b57f6"),
+        "name" : "Soccer Field",
+        "category" : "Sports",
+        "location" : [
+                -91.965511,
+                41.0196483
+        ]
+}
+>
