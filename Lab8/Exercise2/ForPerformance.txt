@@ -1,0 +1,24 @@
+Judging by the below given schema:
+
+//Books
+{
+	ISBN : 12,
+	author : ["X", "Y"], 
+	keywords : ["X", "Y"], 
+	isBorrowed : true, 
+	borrowedBy : {}, 
+	returnDate : Date()
+}
+
+//Users
+{
+	userName : "", 
+	password : "", 
+	email : "",
+	userRole : "std/librarian"
+}
+
+
+If we are to search books by keywords, then its better to apply a multikey index on its keywords attribute. We can also consider applying index on its ISBN. 
+
+ 
