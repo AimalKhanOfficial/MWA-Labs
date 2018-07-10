@@ -2,6 +2,7 @@ const { from } = require('rxjs');
 const { filter } = require('rxjs/operators');
 
 Array.prototype.even = function () {
+    console.log(this);
     var myEvenFunction = function () {
         var evenValuesArr = [];
         from(this)
