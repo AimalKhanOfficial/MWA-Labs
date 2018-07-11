@@ -1,0 +1,15 @@
+<ul>
+  <li *ngFor="let farms of farmsData">
+    <a [routerLink]="['/farm/', farms._id]">{{farms.Farm}}</a>
+  </li>
+
+  
+  <div *ngIf="detailsFarmData!=null">
+    <br/>
+    ////Details/////
+    <br/>
+    Farm Id : {{detailsFarmData._id}}
+    Farm Name : {{detailsFarmData.farm}}
+    Farm Produce : {{detailsFarmData.produce}}
+  </div>
+</ul>
