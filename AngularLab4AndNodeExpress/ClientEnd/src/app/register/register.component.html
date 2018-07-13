@@ -1,10 +1,24 @@
 <div class="container">
-  <div class="card card-container">
-      <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-      <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-      <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin">
-          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-      </form>
-  </div>
+    <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form [formGroup]="myRegisterForm" (ngSubmit)="onSubmit()" class="form-signin">
+            <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+            <input type="text" formControlName="firstName" class="form-control" placeholder="First Name" />
+            <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" />
+            <input type="password" formControlName="password" class="form-control" placeholder="Password" />
+            <input type="password" formControlName="repeatPassword" class="form-control" placeholder="Repeat Password" />
+            <button class="btn btn-lg btn-primary btn-block btn-signin" [disabled]="!myRegisterForm.valid" type="submit">Sign in</button>
+            <div style="color: red" *ngIf="!this.myRegisterForm.get('email').valid && myRegisterForm.get('email').touched">
+                Invalid Email
+            </div>
+            <div style="color: red">
+                {{emailExists}}
+            </div>
+            <div style="color: red">
+                {{passwordsDonotMatch}}
+            </div>
+        </form>
+    </div>
 </div>

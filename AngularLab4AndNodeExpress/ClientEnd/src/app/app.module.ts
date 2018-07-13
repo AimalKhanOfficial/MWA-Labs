@@ -10,6 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainPageComponent } from './main-page/main-page.component';
 import { GetUsersComponent } from './get-users/get-users.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { ProtectedURLGuardGuard } from '../guards/protected-urlguard.guard';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,15 @@ import { AuthInterceptor } from './auth.interceptor';
     RouterModule.forRoot([
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'main', component: MainPageComponent, children: [{ path: 'protected', component: GetUsersComponent }] },
+      {
+        path: 'main', component: MainPageComponent,
+        children: [
+          {
+            path: 'protected', component: GetUsersComponent,
+            canActivate: [ProtectedURLGuardGuard]
+          }
+        ]
+      },
     ])
   ],
   providers: [{

@@ -26,8 +26,19 @@ router.use('/protected', (req, res, next) => {
     }
 });
 
-router.post("/protected", (req, res, next) => {
+router.get("/protected", (req, res, next) => {
     res.status(200).json(usersRepo.getUsers());
+});
+
+router.get("/:email", (req, res, next) => {
+    from(usersRepo.getUsers())
+        .pipe(
+            filter(singleUser => singleUser.email === req.params.email)
+        )
+        .subscribe(singleUser => {
+            return res.json("true");
+        });
+        res.json("false");
 });
 
 router.post("/login", [

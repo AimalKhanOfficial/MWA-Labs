@@ -8,10 +8,11 @@ export class GetProtectedUsersService {
 
   constructor() { }
 
-  loginUser(http) {
-    http.post("http://localhost:3000/users/protected")
+  getUsers(http) {
+    http.get("http://localhost:3000/users/protected")
       .subscribe(
         res => {
+          console.log(res);
           alert(res);
         },
         err => {
